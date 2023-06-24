@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00B53E"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="8dp"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1BC4E2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center"
+            android:text="Play Game"
+            android:textSize="36sp"
+            android:textColor="#000000"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/start_play_game"/>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b6b6b6"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B094CA">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center"
+            android:text="How to play?"
+            android:textSize="36sp"
+            android:textColor="#000000"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/how_to_play"/>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b6b6b6"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF6929">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center"
+            android:text="Quit"
+            android:textSize="36sp"
+            android:textColor="#000000"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/quit_game"/>
+
+    </FrameLayout>
+
+</LinearLayout>
