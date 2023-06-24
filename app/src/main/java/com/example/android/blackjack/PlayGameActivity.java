@@ -49,14 +49,10 @@ public class PlayGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!m_isGameOver){
                     player.drawCard(m_deck);
-                    playerTurn(player);
+                    playerTurn(player, dealer);
                     if(player.getScore() > 21){
                         // Here comes code for when player is busted
-                        player.subtractCash(100);
-                        dealer.addCash(100);
-                        updateCash(player, dealer);
-                        m_isGameOver = true;
-                        alertGameResult("You Busted!", player, dealer);
+                        isBusted(player, dealer);
                     }
                 }
                 else{
@@ -157,9 +153,9 @@ public class PlayGameActivity extends AppCompatActivity {
 
     //This function is called everytime player gets an ace
     //Player will choose if he want 11 or 1 points for ace
-    private void handelAceForPlayer(final Player player){
+    private void handelAceForPlayer(final Player player, final Player dealer){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("You Drawn an Ace");
+        alert.setTitle("You Drew an Ace");
         alert.setMessage("How many points you want to add for ace?");
         alert.setPositiveButton("1", new DialogInterface.OnClickListener() {
             @Override
@@ -167,6 +163,9 @@ public class PlayGameActivity extends AppCompatActivity {
                 player.addScoreForAce(1);
                 TextView playerScore = findViewById(R.id.player_card_score);
                 playerScore.setText("Score: " + player.getScore());
+                if(player.getScore() > 21){
+                    isBusted(player, dealer);
+                }
             }
         });
         alert.setNegativeButton("11", new DialogInterface.OnClickListener() {
@@ -175,19 +174,22 @@ public class PlayGameActivity extends AppCompatActivity {
                 player.addScoreForAce(11);
                 TextView playerScore = findViewById(R.id.player_card_score);
                 playerScore.setText("Score: " + player.getScore());
+                if(player.getScore() > 21){
+                    isBusted(player, dealer);
+                }
             }
         });
         alert.show();
     }
 
     //This function stimulate player's turn when he picks up a card
-    private void playerTurn(Player player){
+    private void playerTurn(Player player, Player dealer){
         LinearLayout playerCardLayout = findViewById(R.id.player_cards_view_layout);
         ImageView playerCard = new ImageView(this);
         playerCard.setImageResource(player.getCardDrawn());
         playerCardLayout.addView(playerCard);
         if(player.getHasAceCard()){
-            handelAceForPlayer(player);
+            handelAceForPlayer(player, dealer);
         }
         else{
             TextView playerScore = findViewById(R.id.player_card_score);
@@ -267,9 +269,9 @@ public class PlayGameActivity extends AppCompatActivity {
 
             //Then two cards are given to Player
             player.drawCard(m_deck);
-            playerTurn(player);
+            playerTurn(player, dealer);
             player.drawCard(m_deck);
-            playerTurn(player);
+            playerTurn(player, dealer);
 
             //Then two cards are given to Dealer
             //Since one card is shown by dealer therefore
@@ -322,6 +324,15 @@ public class PlayGameActivity extends AppCompatActivity {
             }
         });
         alert.show();
+    }
+
+    //This function is used whenever player is busted
+    private void isBusted(Player player, Player dealer){
+        player.subtractCash(100);
+        dealer.addCash(100);
+        updateCash(player, dealer);
+        m_isGameOver = true;
+        alertGameResult("You Busted!", player, dealer);
     }
 
 }
