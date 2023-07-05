@@ -57,6 +57,7 @@ public class PlayGameActivity extends AppCompatActivity {
                 }
                 else{
                     alertGameResult("Game Over!", player, dealer);
+                    hideDealerFaceDownCard();
                 }
             }
         });
@@ -96,15 +97,20 @@ public class PlayGameActivity extends AppCompatActivity {
                 }
                 else{
                     alertGameResult("Game Over!", player, dealer);
+                    hideDealerFaceDownCard();
                 }
             }
         });
 
     }
 
+    //This function hides facedown card once game is over
+    private void hideDealerFaceDownCard(){
+        ImageView img = findViewById(R.id.card_back_side);
+        img.setVisibility(View.INVISIBLE);
+    }
 
     //This function updates cash for player and dealer after every game
-
     private void updateCash(Player player, Player dealer){
         TextView playerCash = findViewById(R.id.player_cash);
         playerCash.setText("Cash $: " + player.getCash());
@@ -258,10 +264,12 @@ public class PlayGameActivity extends AppCompatActivity {
         if(player.getCash() < 100){
             Toast.makeText(this, "Player is out of cash", Toast.LENGTH_SHORT).show();
             m_isGameOver = true;
+            hideDealerFaceDownCard();
         }
         else if(dealer.getCash() < 100){
             Toast.makeText(this, "Dealer is out of cash", Toast.LENGTH_SHORT).show();
             m_isGameOver = true;
+            hideDealerFaceDownCard();
         }
         else{
             //We first shuffle deck of cards
